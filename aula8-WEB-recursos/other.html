@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../jquery.min.js"></script>
+<script>
+
+function main(){
+    $("#b2").click(function(){
+            var suc = function(result){
+                $("p").html(result.resp);
+            }
+            var req = $.ajax({url: "https://php-web-service-gustavoferreira.c9users.io/hello", type:"GET", success:suc});
+       }
+    );
+    $("#b1").click(function(){
+            var suc = function(result,t,request){
+                $("p").html(request.getResponseHeader("allow"));
+            }
+            var req = $.ajax({url: "https://php-web-service-gustavoferreira.c9users.io/hello", type:"OPTIONS", success:suc});
+       }
+    );
+    $("#b3").click(function(){
+            var v = $("#numero").val();
+            var suc = function(result){
+                $("p").html(result.resp);
+            }
+            var req = $.ajax({url: "https://php-web-service-gustavoferreira.c9users.io/dobro/"+v, type:"GET", success:suc,error:(function(){
+                $("p").html("Erro");
+                })
+            });
+       }
+    );
+}
+//data:{val:1,l:"jd"}, dataType:"json"
+$(main);
+</script>
+</head>
+<body>
+    <p>...</p>
+    <button id="b1">OPTIONS</button>
+    <button id="b2">GET</button>
+    <input type="number" id="numero" name="dobrar"/>
+    <button id="b3">DOBRO</button>
+</body>
+</html>
